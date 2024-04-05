@@ -1,7 +1,3 @@
-dsd.inf.elte.hu:8080 {
-  redir https://dsd.inf.elte.hu:8080{uri}
-}
-
-dsd.inf.elte.hu:8081 {
+https://157.181.176.110 {
   reverse_proxy localhost:8000
 }
