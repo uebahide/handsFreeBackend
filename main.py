@@ -19,6 +19,10 @@ ALLOWED_EXTENSIONS = {'mp3', 'wav', 'aac', 'm4a'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+@app.route('/')
+def home():
+    return "<h1>Hello world</h1>"
+
 @socketio.on('connect')
 def test_connect():
     print('Client connected')
