@@ -81,9 +81,9 @@ def receive_audio():
         response_data = {"hun": text_data_HUN,
                          "eng": text_data_ENG}
 
-        socketio.emit('file_saved', {'filepath': file_path, 'data': response_data})
+        # socketio.emit('file_saved', {'filepath': file_path, 'data': response_data})
 
-        return jsonify({'message': 'Audio uploaded successfully to ' + filename})
+        return jsonify({'message': 'Audio uploaded successfully to ' + filename, 'hun':text_data_HUN, 'eng':text_data_ENG})
 
     return jsonify({'error': 'Invalid file type'}), 400
 
