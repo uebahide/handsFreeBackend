@@ -12,7 +12,9 @@ import json
 load_dotenv()
 
 app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*")
+# socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode="gevent")
+
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'mp3', 'wav', 'aac', 'm4a'}
@@ -81,7 +83,7 @@ def receive_audio():
 
         socketio.emit('file_saved', {'filepath': file_path, 'data': response_data})
 
-        return jsonify({'message': 'Audio uploaded successfully to' + filename})
+        return jsonify({'message': 'Audio uploaded successfully to ' + filename})
 
     return jsonify({'error': 'Invalid file type'}), 400
 
