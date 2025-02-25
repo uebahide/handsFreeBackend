@@ -13,7 +13,7 @@ load_dotenv()
 
 app = Flask(__name__)
 # socketio = SocketIO(app, cors_allowed_origins="*")
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode="gevent")
+# socketio = SocketIO(app, cors_allowed_origins="*", async_mode="gevent")
 
 
 UPLOAD_FOLDER = 'uploads'
@@ -25,13 +25,13 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def home():
     return "<h1>Hello world</h1>"
 
-@socketio.on('connect')
-def test_connect():
-    print('Client connected')
+# @socketio.on('connect')
+# def test_connect():
+#     print('Client connected')
 
-@socketio.on('disconnect')
-def test_disconnect():
-    print('Client disconnected')
+# @socketio.on('disconnect')
+# def test_disconnect():
+#     print('Client disconnected')
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -96,24 +96,26 @@ def submit_form():
         name = form_datas.get('name')
         location = form_datas.get('location')
         form_data = form_datas.get('payload')
-        editedHun = form_data.get('editedHun', '')
+        # editedHun = form_data.get('editedHun', '')
 
-        words = editedHun.split()
-        word_count = len(words)
+        # words = editedHun.split()
+        # word_count = len(words)
 
-        if word_count == 1:
-            file_name_part = words[0]
-        elif word_count in [2, 3]:
-            file_name_part = '_'.join(words)
-        else:
-            file_name_part = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        # if word_count == 1:
+        #     file_name_part = words[0]
+        # elif word_count in [2, 3]:
+        #     file_name_part = '_'.join(words)
+        # else:
+        #     file_name_part = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        date = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
         
-        index = 1
-        file_name = os.path.join(DATA_FOLDER, f"{name}_{location}_{file_name_part}_{index}.json")
-        while os.path.exists(file_name):
-            index += 1
-            file_name = os.path.join(DATA_FOLDER, f"{name}_{location}_{file_name_part}_{index}.json")
+        # index = 1
+        # file_name = os.path.join(DATA_FOLDER, f"{name}_{location}_{file_name_part}_{index}.json")
+        file_name = os.path.join(DATA_FOLDER, f"{name}_{location}_{date}.json")
+        # while os.path.exists(file_name):
+        #     index += 1
+        #     file_name = os.path.join(DATA_FOLDER, f"{name}_{location}_{file_name_part}_{index}.json")
 
         
         with open(file_name, 'w') as file:
@@ -128,4 +130,4 @@ def submit_form():
 if __name__ == '__main__':
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
-    socketio.run(app, host='0.0.0.0', port=8000, debug=True)
+    Flask.run(app, host='0.0.0.0', port=8000, debug=True)
