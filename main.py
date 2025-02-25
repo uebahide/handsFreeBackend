@@ -120,6 +120,7 @@ def submit_form():
         
         with open(file_name, 'w') as file:
             json.dump(form_data, file, indent=4)
+            print("form data was uploaded successfully")
 
         return jsonify(message="Form data received successfully"), 200
     except Exception as e:
