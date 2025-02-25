@@ -92,10 +92,10 @@ DATA_FOLDER = './data'
 @app.route('/submit-form', methods=['POST'])
 def submit_form():
     try:
-        form_datas = request.json
-        name = form_datas.get('name')
-        location = form_datas.get('location')
-        form_data = form_datas.get('payload')
+        payload = request.json
+        print(payload)
+        name = payload.get('name')
+        location = payload.get('location')
         # editedHun = form_data.get('editedHun', '')
 
         # words = editedHun.split()
@@ -119,7 +119,7 @@ def submit_form():
 
         
         with open(file_name, 'w') as file:
-            json.dump(form_data, file, indent=4)
+            json.dump(payload, file, indent=4)
             print("form data was uploaded successfully")
 
         return jsonify(message="Form data received successfully"), 200
